@@ -1,0 +1,32 @@
+@use '../1-base/_variables'
+
+@mixin aside-container
+    border: 1px solid #DFE0E7
+    border-radius: 8px
+    // padding: 16px
+    background: #fff
+
+@mixin container
+    border: 1px solid #DFE0E7
+    border-radius: 8px
+    padding: 16px
+    background: #fff
+
+@mixin asideContainerTitles
+    font-weight: 700
+    font-size: 12px
+    color: variables.$aside-title-color
+
+@mixin h2-cards
+    font-size: 16px
+    line-height: 100%
+    font-weight: 700
+    color: variables.$title-main-color
+
+@mixin mobile
+    @media(max-width: 768px)
+        @content
+
+@mixin mobile-mini
+    @media(max-width: 425px)
+        @content

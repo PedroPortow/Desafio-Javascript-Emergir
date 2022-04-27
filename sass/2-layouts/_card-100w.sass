@@ -1,0 +1,87 @@
+@use '../1-base/_variables'
+@use 'mixins'
+
+.container-100w
+    @include mixins.aside-container
+
+    display: flex
+    margin-bottom: 16px
+
+    &-first-section
+        width: 472px
+        border-right: 1px solid variables.$grey-color
+        padding: 16px
+
+        @include mixins.mobile
+            width: 90%
+        h2
+            @include mixins.h2-cards
+
+            span
+                background: #fff
+                border-radius: 4px
+                border: 1px solid variables.$grey-color
+                color: variables.$icons-color
+                font-weight: 400
+                font-size: 12px
+                width: 49px
+                height: 16px
+                padding: 2px 4px
+                margin-left: 8px
+
+        p
+            font-weight: 400
+            font-size: 12px
+            color: #627389
+            margin: 4px 0px
+
+        span
+            width: 65px
+            height: 16px
+            padding: 2px 8px
+            border: 1px solid variables.$badge-green
+            border-radius: 32px
+            font-family: 'Roboto'
+            font-size: 12px
+            font-weight: 700
+            color: variables.$badge-text
+
+    &-second-section
+        width: 242px
+        border-right: 1px solid variables.$grey-color
+        padding: 16px
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+
+        @include mixins.mobile
+            display: none
+        .row
+            display: flex
+            flex-direction: row
+            // border: 1px solid red
+            width: 100%
+            justify-content: space-between
+
+            h3
+                font-weight: 400
+                font-size: 12px
+                color: variables.$aside-h2
+                text-align: start
+
+            p
+                font-size: 12px
+                font-weight: 400
+                color: variables.$icons-color
+                text-align: end
+
+    &-third-section
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 62px
+
+        i
+            color: variables.$icons-color
+            cursor: pointer

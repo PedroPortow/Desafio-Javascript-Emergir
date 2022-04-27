@@ -1,0 +1,54 @@
+@use '../1-base/_variables'
+@use 'mixins'
+
+.main-cards-wrapper
+    display: flex
+    flex-direction: column
+    // background: red
+    flex-wrap: wrap
+
+    .outside-title
+        font-weight: 600
+        font-size: 20px
+        color: variables.$title-main-color
+        line-height: 100%
+        letter-spacing: -0.02em
+        margin-bottom: 8px
+
+    .card-row
+        display: flex
+        flex-direction: row
+        gap: 16px
+        margin-bottom: 16px
+        flex-wrap: wrap
+
+        @include mixins.mobile
+            flex-direction: column
+
+        .container-anotacao
+            @include mixins.container
+            width: 380px
+            height: fit-content
+
+            @include mixins.mobile-mini
+                width: 100%
+
+            h2
+                @include mixins.h2-cards
+
+            .image-row
+                display: flex
+                gap: 16px
+                margin: 8px 0
+                // border: 1px solid red
+
+                img
+                    width: 100px
+                    height: 100px
+                    border-radius: 5px
+
+            p
+                font-size: 14px
+                line-height: 130%
+                font-weight: 400
+                color: variables.$aside-h3

@@ -1,0 +1,24 @@
+@use '../1-base/_variables'
+@use 'mixins'
+
+#main
+    background: variables.$bg-color
+
+    padding: 40px 16px
+    display: flex
+    justify-content: center
+    align-items: center
+    flex: 1
+    min-height: 90vh
+
+    @include mixins.mobile-mini
+        padding-bottom: 24px
+
+    &-wrapper
+        display: flex
+        flex-direction: row
+        // border: 1px solid red
+        gap: 24px
+
+        @include mixins.mobile-mini
+            flex-direction: column
