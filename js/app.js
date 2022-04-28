@@ -22,6 +22,7 @@ function load(){
         
         if(document.readyState === 'complete'){
             try{
+                debugger
                 divRenderTitle1.insertAdjacentHTML('afterbegin', html1)
                 divRenderTitle2.insertAdjacentHTML('beforebegin', html2);
                 await getFazendaNotes()
