@@ -26,21 +26,22 @@ a {
   transition: 0.2s;
 }
 
-.active {
-  display: flex;
-  transition: 0.2s;
-}
-
-.inactive {
-  display: none;
-  transition: 0.2s;
-}
-
 .rowz {
   display: flex;
   width: 100%;
   gap: 16px;
   flex-direction: row;
+  transition: display 1s ease-in-out;
+}
+
+.active {
+  display: flex;
+  transition: 1s;
+}
+
+.inactive {
+  transition: 1s;
+  display: none;
 }
 
 .rotateimg180 {
@@ -49,6 +50,11 @@ a {
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
+  transition: 0.5s;
+}
+
+.fa-solid {
+  transition: 0.5s;
 }
 
 header {
@@ -244,7 +250,7 @@ header .textWrapper i {
 .main-cards-wrapper {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  width: 100%;
 }
 .main-cards-wrapper .outside-title {
   font-weight: 600;

@@ -1,15 +1,12 @@
 import {getNotesPlant} from './GetData.js'
 import renderViewAside from './modules.js/aside.js'
-// import arrowAnimation from './modules.js/arrowAnim.js'
 
 
 renderViewAside() //aside <-----------
 getFazendaNotes() //anotacoes da fazenda <---------------------------
 
-
 export async function getFazendaNotes(){
     const dataNotes = await getNotesPlant('notes').then(res => {
-       
         return res
     });
 
@@ -27,9 +24,9 @@ export async function getFazendaNotes(){
      
     })
 
-    dataPlant.results.forEach(el => { 
-        // console.log(el)
-        renderTalhaoPlantationsHeaders(el)
+    dataPlant.results.forEach((el, index) => { 
+        // console.log(index, el)
+        renderTalhaoPlantationsHeaders(el, index)
     })
 
     let arr = []
@@ -37,16 +34,22 @@ export async function getFazendaNotes(){
         dataPlant.results.forEach(dataPlant => {
             if (el.location.id === dataPlant.id){
                 arr.push(el)
+                // console.log(arr)
             }
         })
     ])
 
-    dataPlant.results.forEach(elt => {
+    dataPlant.results.forEach((elt, index) => {
+        let verify = false
+        // console.log(index)
         arr.forEach(el => {
             if(el.location.id === elt.id){
+                // verify = true
                 let currentId = el.location.id
                 // console.log(currentId)
-                renderNotesTalhoes(el, currentId)
+               
+
+                renderNotesTalhoes(el, currentId, index)
             }
         })
     })
@@ -91,13 +94,15 @@ function renderDetalhesFazenda(el){
 /////////////////////////////////////////////////////////
 
 
-function renderTalhaoPlantationsHeaders(el){
+function renderTalhaoPlantationsHeaders(el, index){
     // console.log(el)
     
-    if(el){
+    console.log(el, index)
+
+        
         const wrapperTalhoes = document.querySelector('[wrapperTalhoes]')
         const talhaoContent = document.querySelector('[talhaoContent]')
-        
+
         const html = 
         `
         <div class="container-100w">
@@ -125,144 +130,173 @@ function renderTalhaoPlantationsHeaders(el){
             </div>
         </div>
         <div class="rowz"  id-atribute${el.id}>
-       
         </div>
-
         `
         
-       
-        
-        wrapperTalhoes.insertAdjacentHTML('afterbegin', html)
+        wrapperTalhoes.insertAdjacentHTML('beforebegin', html)
+    
    
-    }
+
 
 }
 
 
-function renderNotesTalhoes(el, currentId){
-    // console.log(el
+function renderNotesTalhoes(el, currentId, index){
+    // console.log(currentId) 
+    // console.log(el)
+    // console.log(index)
 
    
-    // console.log(el.location.id)
     const card100w = document.querySelector('.container-100w')
     const divRender = document.querySelector(`[id-atribute${currentId}]`)
-
-    // console.log(divRender)
     
     const arrow = document.querySelectorAll(`[arrows-data${currentId}]`).forEach(arrow => {
-        arrow.addEventListener('click', function(){
-          
+        arrow.addEventListener('click', function(){ 
                 arrow.classList.toggle('rotateimg180')
-                
-                if(arrow.classList.contains('rotateimg180')){
+
+                if(arrow.classList.contains('rotateimg180') || divRender.classList.contains('active')){
                     hide()
                 }
                 else{
                     appear()
-                }
-               
-        })
-        
+                }   
+        })  
     })
 
-    console.log(arrow)
-
     function hide(){
-        divRender.style.display = 'none'
-
+        divRender.classList.toggle('inactive')
     }
 
     function appear(){
-        divRender.style.display = 'flex'
+        divRender.classList.toggle('inactive')
     }
+
+    if(index === 0){
+        if(el.location.id)
+         if(el.attachments.images.length > 0){
+             const urls = []
+             el.attachments.images.forEach( el => {
+                 urls.push(el.thumb_url)
+             })
     
-
-
-    if(el.attachments.images.length > 0){
-        const urls = []
-        el.attachments.images.forEach( el => {
-            urls.push(el.thumb_url)
-        })
-
-        const cardNotesFarm =
-        `
-        <div class="card-row">
-            <div class="container-anotacao">
-                <h2><i class="fa fa-pencil"></i>Anotação</h2>
-                <div class="image-row">
-                    ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
-                </div>
-                <p>${el.description}</p>
-            </div>
-        </div>
-        `
-        divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
-
-    }
-    else{
-        const cardNotesFarm =
-        `
-        <div class="card-row">
-            <div class="container-anotacao">
-                <h2><i class="fa fa-pencil"></i>Anotação</h2>
-                <div class="image-row">
-
-                </div>
-                <p>${el.description === undefined ? '' : el.description }</p>
-            </div>
-        </div>
-        `
-        divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+             const cardNotesFarm =
+             `
+             <div class="card-row">
+                 <div class="container-anotacao">
+                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                     <div class="image-row">
+                         ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
+                     </div>
+                     <p>${el.description}</p>
+                 </div>
+             </div>
+             `
+             divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+    
+         }
+         else{
+             const cardNotesFarm =
+             `
+             <div class="card-row">
+                 <div class="container-anotacao">
+                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                     <div class="image-row">
+    
+                     </div>
+                     <p>${el.description === undefined ? '' : el.description }</p>
+                 </div>
+             </div>
+             `
+             divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+         }
     }
 
-
+    else if(index > 0){
+        divRender.classList.toggle('inactive')
+        if(el.location.id)
+         if(el.attachments.images.length > 0){
+             const urls = []
+             el.attachments.images.forEach( el => {
+                 urls.push(el.thumb_url)
+             })
+    
+             const cardNotesFarm =
+             `
+             <div class="card-row">
+                 <div class="container-anotacao">
+                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                     <div class="image-row">
+                         ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
+                     </div>
+                     <p>${el.description}</p>
+                 </div>
+             </div>
+             `
+             divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+    
+         }
+         else{
+             const cardNotesFarm =
+             `
+             <div class="card-row">
+                 <div class="container-anotacao">
+                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                     <div class="image-row">
+    
+                     </div>
+                     <p>${el.description === undefined ? '' : el.description }</p>
+                 </div>
+             </div>
+             `
+             divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+         }
+    }
+ 
 
 }
 
-// function arrowAnimation(){
-   
-
- 
- 
-     
-//     document.querySelectorAll('[arrows-data]').forEach(arrow => arrow.addEventListener('click', function(){
-//         console.log('clicou na flecha')
-      
-
-       
-//         if(arrow.classList.contains('fa-angle-up')){ //isso aqui da pra fazer de um jeito melhor, codigo ta ruim
-            
-    
-//            arrow.classList.remove('fa-angle-up')
-//            arrow.classList.add('fa-angle-down')
-    
-           
-//             //aqui tem que chamar a função que vai RENDERIZAR os talhões
-//             document.querySelectorAll('.rowz').forEach(row => {
-//                 row.style.display = 'flex'
-//             })
-          
-//         }
-//         else{
-//             arrow.classList.add('fa-angle-up')
-//             arrow.classList.remove('fa-angle-down')
-    
-//             //aqui tem que chamar a função que vai ESCONDER os talhões
-//             document.querySelectorAll('.rowz').forEach(row => {
-//                 row.style.display = 'none'
-//             })
-//         }
-//     }))
-    
-// }
 
 
-// function arrowManage(){  
-//     setTimeout(()=>{ //esse timeout é temproario, só pra funcionar
-//       arrowAnimation()
-//     },1000)
-// }
-
-// arrowManage()
 
 
+
+/////////////ta aq
+// if(el){
+//     if(el.location.id)
+//      if(el.attachments.images.length > 0){
+//          const urls = []
+//          el.attachments.images.forEach( el => {
+//              urls.push(el.thumb_url)
+//          })
+
+//          const cardNotesFarm =
+//          `
+//          <div class="card-row">
+//              <div class="container-anotacao">
+//                  <h2><i class="fa fa-pencil"></i>Anotação</h2>
+//                  <div class="image-row">
+//                      ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
+//                  </div>
+//                  <p>${el.description}</p>
+//              </div>
+//          </div>
+//          `
+//          divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+
+//      }
+//      else{
+//          const cardNotesFarm =
+//          `
+//          <div class="card-row">
+//              <div class="container-anotacao">
+//                  <h2><i class="fa fa-pencil"></i>Anotação</h2>
+//                  <div class="image-row">
+
+//                  </div>
+//                  <p>${el.description === undefined ? '' : el.description }</p>
+//              </div>
+//          </div>
+//          `
+//          divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+//      }
+//  }
