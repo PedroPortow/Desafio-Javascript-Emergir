@@ -5,9 +5,16 @@
     display: flex
     flex-direction: column
     width: 100%
-    flex
 
-    .outside-title
+    .outside-title-top
+        font-weight: 600
+        font-size: 20px
+        color: variables.$title-main-color
+        line-height: 100%
+        letter-spacing: -0.02em
+        margin-bottom: 8px
+
+    .outside-title-talhao
         font-weight: 600
         font-size: 20px
         color: variables.$title-main-color
@@ -18,9 +25,11 @@
     .card-row
         display: flex
         flex-direction: row
-        gap: 16px
-        margin-bottom: 16px
         flex-wrap: wrap
+
+        gap: 16px
+        // background: red
+        margin-bottom: 16px
 
         @include mixins.mobile
             flex-direction: column
@@ -31,7 +40,7 @@
             height: fit-content
 
             @include mixins.mobile-mini
-                width: 100%
+                width: 390px
 
             h2
                 @include mixins.h2-cards

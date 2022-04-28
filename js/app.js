@@ -1,10 +1,52 @@
-import {getNotesPlant} from './GetData.js'
-import renderViewAside from './modules.js/aside.js'
+import {getNotesPlant, getFazenda, getPluvio} from './GetData.js'
+import {renderViewAsideT }from './modules.js/aside.js'
 
 
-renderViewAside() //aside <-----------
-getFazendaNotes() //anotacoes da fazenda <---------------------------
+// renderViewAside() //aside <-----------
+// getFazendaNotes() //anotacoes da fazenda <---------------------------
 
+
+function load(){
+    window.onload = async () => {
+        const load = document.querySelector('.load')
+        const main = document.querySelector('#main')
+        const title1 = document.querySelector('.outside-title-top')
+        
+        const html1 = 
+        `
+        <h2 class="outside-title-top">Anotações da fazenda</h2>
+        
+        `
+        
+        const html2 = `
+        <h2 class="outside-title-talhao">Evento dos talhões</h2>
+        `
+        const divRenderTitle1 = document.querySelector('.main-cards-wrapper')
+        const divRenderTitle2 = document.querySelector('[wrapperTalhoes]')
+        const title2 = document.querySelector('.outside-title-talhao')
+        main.style.display = 'none'
+        
+        
+        
+        
+    
+        if(document.readyState === 'complete'){
+            try{
+                divRenderTitle1.insertAdjacentHTML('afterbegin', html1)
+                divRenderTitle2.insertAdjacentHTML('beforebegin', html2);
+                await getFazendaNotes()
+            }
+            catch(err){
+                console.error(err)
+            }
+            finally{
+                main.style.display = ''
+                load.style.display = 'none'
+            }
+        }
+    }
+}
+load()
 export async function getFazendaNotes(){
     const dataNotes = await getNotesPlant('notes').then(res => {
         return res
@@ -14,19 +56,37 @@ export async function getFazendaNotes(){
         return res
     })
 
+    // const dataFazenda = await getFazenda().then(res => {
+    //     return res
+    // })
+  
+    const data = await getFazenda().then(res => {
+        return res
+    })
 
-    dataNotes.results.forEach(el => {
+    const dataPluvio = await getPluvio().then(res => {
+        return res
+    })
+
+   
+   renderViewAsideT(data, dataPlant.results.length, dataPluvio)
+    
+ 
+
+    dataNotes.results.forEach((el, index) => {
         // console.log(el)
         if(el.location_type === 'Farm'){
                 // console.log(el.description)
-            renderDetalhesFazenda(el)
+            renderDetalhesFazenda(el, index)
         }
      
     })
 
+    // renderViewAsideT(dataFazenda)
     dataPlant.results.forEach((el, index) => { 
         // console.log(index, el)
         renderTalhaoPlantationsHeaders(el, index)
+       
     })
 
     let arr = []
@@ -46,17 +106,27 @@ export async function getFazendaNotes(){
             if(el.location.id === elt.id){
                 // verify = true
                 let currentId = el.location.id
-                // console.log(currentId)
+               
                
 
                 renderNotesTalhoes(el, currentId, index)
+                
             }
         })
     })
+
+  
 }
 
-function renderDetalhesFazenda(el){
+function renderDetalhesFazenda(el, index){
     const cardRowFarm = document.querySelector('.card-row') //row q vai ser adicionada
+        const html1 = 
+    `
+    <h2 class="outside-title-top">Anotações da fazenda</h2>
+    
+    `
+    
+
     if(el.attachments.images.length > 0){
         const urls = []
         el.attachments.images.forEach( el => {
@@ -73,22 +143,23 @@ function renderDetalhesFazenda(el){
         </div>
         `
         cardRowFarm.insertAdjacentHTML('afterbegin', cardNotesFarm)
-
+        
     }
     else{
         const cardNotesFarm =
         `
         <div class="container-anotacao">
-            <h2><i class="fa fa-pencil"></i>Anotação</h2>
-            <div class="image-row">
-
-            </div>
-            <p>${el.description}</p>
+        <h2><i class="fa fa-pencil"></i>Anotação</h2>
+        <div class="image-row">
+        
+        </div>
+        <p>${el.description}</p>
         </div>
         `
         cardRowFarm.insertAdjacentHTML('afterbegin', cardNotesFarm)
     }
-}
+   }
+
 
 
 /////////////////////////////////////////////////////////
@@ -126,27 +197,24 @@ function renderTalhaoPlantationsHeaders(el, index){
                 </div>
             </div>
             <div class="container-100w-third-section">
-                <i class="fa-solid fa-angle-down" arrows-data${el.id}></i>
+                ${index === 0 ? ` <i class="fa-solid fa-angle-up" arrows-data${el.id}></i>`: ` <i class="fa-solid fa-angle-down" arrows-data${el.id}></i>` }
             </div>
-        </div>
+        </div> 
         <div class="rowz"  id-atribute${el.id}>
         </div>
         `
         
-        wrapperTalhoes.insertAdjacentHTML('beforebegin', html)
-    
-   
+        if(el){ //se tiver talhão na api renderiza
+            wrapperTalhoes.insertAdjacentHTML('beforebegin', html)
+        }
+        
 
 
 }
 
 
 function renderNotesTalhoes(el, currentId, index){
-    // console.log(currentId) 
-    // console.log(el)
-    // console.log(index)
 
-   
     const card100w = document.querySelector('.container-100w')
     const divRender = document.querySelector(`[id-atribute${currentId}]`)
     
@@ -170,133 +238,92 @@ function renderNotesTalhoes(el, currentId, index){
     function appear(){
         divRender.classList.toggle('inactive')
     }
-
-    if(index === 0){
-        if(el.location.id)
-         if(el.attachments.images.length > 0){
-             const urls = []
-             el.attachments.images.forEach( el => {
-                 urls.push(el.thumb_url)
-             })
-    
-             const cardNotesFarm =
-             `
-             <div class="card-row">
-                 <div class="container-anotacao">
-                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
-                     <div class="image-row">
-                         ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
-                     </div>
-                     <p>${el.description}</p>
-                 </div>
-             </div>
-             `
-             divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
-    
-         }
-         else{
-             const cardNotesFarm =
-             `
-             <div class="card-row">
-                 <div class="container-anotacao">
-                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
-                     <div class="image-row">
-    
-                     </div>
-                     <p>${el.description === undefined ? '' : el.description }</p>
-                 </div>
-             </div>
-             `
-             divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
-         }
-    }
-
-    else if(index > 0){
-        divRender.classList.toggle('inactive')
-        if(el.location.id)
-         if(el.attachments.images.length > 0){
-             const urls = []
-             el.attachments.images.forEach( el => {
-                 urls.push(el.thumb_url)
-             })
-    
-             const cardNotesFarm =
-             `
-             <div class="card-row">
-                 <div class="container-anotacao">
-                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
-                     <div class="image-row">
-                         ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
-                     </div>
-                     <p>${el.description}</p>
-                 </div>
-             </div>
-             `
-             divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
-    
-         }
-         else{
-             const cardNotesFarm =
-             `
-             <div class="card-row">
-                 <div class="container-anotacao">
-                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
-                     <div class="image-row">
-    
-                     </div>
-                     <p>${el.description === undefined ? '' : el.description }</p>
-                 </div>
-             </div>
-             `
-             divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
-         }
-    }
  
+
+    if(el){
+        if(index === 0){
+            if(el.location.id)
+             if(el.attachments.images.length > 0){
+                 const urls = []
+                 el.attachments.images.forEach( el => {
+                     urls.push(el.thumb_url)
+                 })
+        
+                 const cardNotesFarm =
+                 ` 
+                 <div class="card-row">
+                     <div class="container-anotacao">
+                         <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                         <div class="image-row">
+                             ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
+                         </div>
+                         <p>${el.description}</p>
+                     </div>
+                 </div>
+                 `
+                 divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+        
+             }
+             else{
+                 const cardNotesFarm =
+                 `
+                 <div class="card-row">
+                     <div class="container-anotacao">
+                         <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                         <div class="image-row">
+        
+                         </div>
+                         <p>${el.description === undefined ? '' : el.description }</p>
+                     </div>
+                 </div>
+                 `
+                 divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+             }
+        }
+        
+    
+        else if(index > 0){
+            divRender.classList.toggle('inactive')
+            if(el.location.id)
+             if(el.attachments.images.length > 0){
+                 const urls = []
+                 el.attachments.images.forEach( el => {
+                     urls.push(el.thumb_url)
+                 })
+        
+                 const cardNotesFarm =
+                 `
+                 <div class="card-row">
+                     <div class="container-anotacao">
+                         <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                         <div class="image-row">
+                             ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
+                         </div>
+                         <p>${el.description}</p>
+                     </div>
+                 </div>
+                 `
+                 divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+        
+             }
+             else{
+                 const cardNotesFarm =
+                 `
+                 <div class="card-row">
+                     <div class="container-anotacao">
+                         <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                         <div class="image-row">
+        
+                         </div>
+                         <p>${el.description === undefined ? '' : el.description }</p>
+                     </div>
+                 </div>
+                 `
+                 divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
+             }
+        }
+    }
+  
 
 }
 
-
-
-
-
-
-/////////////ta aq
-// if(el){
-//     if(el.location.id)
-//      if(el.attachments.images.length > 0){
-//          const urls = []
-//          el.attachments.images.forEach( el => {
-//              urls.push(el.thumb_url)
-//          })
-
-//          const cardNotesFarm =
-//          `
-//          <div class="card-row">
-//              <div class="container-anotacao">
-//                  <h2><i class="fa fa-pencil"></i>Anotação</h2>
-//                  <div class="image-row">
-//                      ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
-//                  </div>
-//                  <p>${el.description}</p>
-//              </div>
-//          </div>
-//          `
-//          divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
-
-//      }
-//      else{
-//          const cardNotesFarm =
-//          `
-//          <div class="card-row">
-//              <div class="container-anotacao">
-//                  <h2><i class="fa fa-pencil"></i>Anotação</h2>
-//                  <div class="image-row">
-
-//                  </div>
-//                  <p>${el.description === undefined ? '' : el.description }</p>
-//              </div>
-//          </div>
-//          `
-//          divRender.insertAdjacentHTML('afterbegin', cardNotesFarm)
-//      }
-//  }

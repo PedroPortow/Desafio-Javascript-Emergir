@@ -6,6 +6,10 @@
 
     display: flex
     margin-bottom: 16px
+    max-width: 776px
+
+    @include mixins.mobile
+        max-width: 380px
 
     &-first-section
         width: 472px
@@ -13,7 +17,8 @@
         padding: 16px
 
         @include mixins.mobile
-            width: 90%
+            width: 370px
+
         h2
             @include mixins.h2-cards
 
