@@ -1,12 +1,3 @@
-import {getFazenda, getNotesPlant, getPluvio} from '../GetData.js'
-import { getFazendaNotes } from '../app.js'
-
-export async function renderViewAside(){
-   
- 
-    // renderViewAsideT(data)
-}
-
 export function renderViewAsideT(data, dataPlant, dataPluvio){
     const divRender = document.querySelector('[aside-render]')
     
@@ -64,8 +55,5 @@ export function renderViewAsideT(data, dataPlant, dataPluvio){
             
             `;
             
-            divRender.insertAdjacentHTML('afterbegin', html)
-           
-           
-            
+            divRender.insertAdjacentHTML('afterbegin', html)     
 }
