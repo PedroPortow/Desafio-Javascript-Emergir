@@ -10,7 +10,13 @@ export function renderDetalhesFazenda(el, index){
             const cardNotesFarm =
             `
             <div class="container-anotacao">
-                <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                <div class="textCardRow">
+                    <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                    <p>${el.date
+                        .split("T")[1]
+                        .slice(0, 5)} PM
+                    </p>
+                </div>
                 <div class="image-row">
                     ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
                 </div>
@@ -23,7 +29,14 @@ export function renderDetalhesFazenda(el, index){
             const cardNotesFarm =
             `
             <div class="container-anotacao">
-            <h2><i class="fa fa-pencil"></i>Anotação</h2>
+            <div class="textCardRow">
+                    <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                    <p>${el.date
+                        .split("T")[1]
+                        .slice(0, 5)} PM
+                    </p>
+                </div>
+           
             <div class="image-row">
             
             </div>
@@ -105,7 +118,13 @@ export function renderNotesTalhoes(el, currentId, index){
                  ` 
                  <div class="card-row">
                      <div class="container-anotacao">
-                         <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                     <div class="textCardRow">
+                     <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                     <p>${el.date
+                         .split("T")[1]
+                         .slice(0, 5)} PM
+                     </p>
+                 </div>
                          <div class="image-row">
                              ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
                          </div>
@@ -121,7 +140,13 @@ export function renderNotesTalhoes(el, currentId, index){
                  `
                  <div class="card-row">
                      <div class="container-anotacao">
-                         <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                        <div class="textCardRow">
+                            <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                            <p>${el.date
+                                .split("T")[1]
+                                .slice(0, 5)} PM
+                            </p>
+                        </div>
                          <div class="image-row">
         
                          </div>
@@ -147,7 +172,13 @@ export function renderNotesTalhoes(el, currentId, index){
                  `
                  <div class="card-row">
                      <div class="container-anotacao">
-                         <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                        <div class="textCardRow">
+                            <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                            <p>${el.date
+                                .split("T")[1]
+                                .slice(0, 5)} PM
+                            </p>
+                        </div>
                          <div class="image-row">
                              ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
                          </div>
@@ -163,7 +194,13 @@ export function renderNotesTalhoes(el, currentId, index){
                  `
                  <div class="card-row">
                      <div class="container-anotacao">
-                         <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                        <div class="textCardRow">
+                            <h2><i class="fa fa-pencil"></i>Anotação</h2>
+                            <p>${el.date
+                                .split("T")[1]
+                                .slice(0, 5)} PM
+                            </p>
+                        </div>
                          <div class="image-row">
         
                          </div>

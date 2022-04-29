@@ -42,7 +42,7 @@ export function renderViewAsideT(data, dataPlant, dataPluvio){
             </div>
             <div class="second-section-third-row">
             <h2>Pluviometria</h2>
-            <h2><i class="fa fa-droplet"></i> ${dataPluvio.rain_until_date} mm</h2>
+            <h2><i class="fa fa-droplet"></i> ${Number.isInteger(dataPluvio.rain_until_date) === true ? dataPluvio.rain_until_date + ',00' : dataPluvio.rain_until_date} mm</h2>
             <p>Acumulado na safra</p>
             </div>
             </div>
@@ -64,6 +64,7 @@ export function renderViewAsideT(data, dataPlant, dataPluvio){
             divRender.insertAdjacentHTML('afterbegin', html)
             document.querySelector('button').addEventListener('click', function(){
                 alert('Pelo bem da sua impressora não tem como imprimir essa página 🙏')
+                //sério n bota window.print() aq pfv
             })
 
 }

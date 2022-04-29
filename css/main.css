@@ -380,6 +380,11 @@ header .textWrapper i {
     flex-direction: column;
   }
 }
+.main-cards-wrapper .card-row .textCardRow {
+  display: flex;
+  justify-content: space-between;
+  color: #E7E8EF;
+}
 .main-cards-wrapper .card-row .container-anotacao {
   border: 1px solid #DFE0E7;
   border-radius: 8px;

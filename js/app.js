@@ -1,4 +1,4 @@
-import {getFazendaNotes} from './modules.js/getData.js'
+import {getFazendaNotes} from './modules/getData.js'
 
 
 function load(){
@@ -31,7 +31,6 @@ function load(){
             finally{
                 main.style.display = ''
                 load.style.display = 'none'
-                     
             }
         }
     }
