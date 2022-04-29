@@ -1,5 +1,11 @@
 export function renderViewAsideT(data, dataPlant, dataPluvio){
     const divRender = document.querySelector('[aside-render]')
+    // console.log(data, dataPluvio)
+
+    const plots = dataPluvio.plots
+    const active_plots = dataPluvio.active_harvest_plantations.length
+    const totalPlots = plots + active_plots
+   
     
     const html = 
     `
@@ -7,7 +13,7 @@ export function renderViewAsideT(data, dataPlant, dataPluvio){
         <div class="first-section">
             <h2>Fazenda</h2>
             <h3 nome-fazenda>${data.farm.name}</h3>
-            <p>${dataPlant} talhões</p>
+            <p>${totalPlots} talhões</p>
             
             </div>
             
@@ -55,5 +61,9 @@ export function renderViewAsideT(data, dataPlant, dataPluvio){
             
             `;
             
-            divRender.insertAdjacentHTML('afterbegin', html)     
+            divRender.insertAdjacentHTML('afterbegin', html)
+            document.querySelector('button').addEventListener('click', function(){
+                alert('Pelo bem da sua impressora não tem como imprimir essa página 🙏')
+            })
+
 }

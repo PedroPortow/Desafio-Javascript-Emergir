@@ -29,12 +29,21 @@ a
     flex-wrap: wrap
     width: 100%
     gap: 16px
-    // background: green
+    // background: yellow
     margin-bottom: 16px
+    max-width: 776px
+
+    @media(max-width: 1049px)
+        width: 50px
+        // background: pink
 
     @media(max-width: 768px)
-        width: 100%
+        // width: 100%
         // background: red
+
+    @media(max-width: 649px)
+        width: 100%
+        flex-direction: column
 
 .active
     display: flex
