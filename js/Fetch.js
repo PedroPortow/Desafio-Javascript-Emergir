@@ -1,7 +1,7 @@
 
 export async function getNotesPlant(resource){
-    const cors = `https://justcors.com/tl_fba9df5`
-    let url = `${cors}/https://farmbox.cc/api/public/technical_visit_report/${resource}.json?token=379238b5-705c-48bc-b8c9-27e26676b417` //aqui a url da requisição
+    const cors = `https://justcors.com/tl_0882966/`
+    let url = `${cors}https://farmbox.cc/api/public/technical_visit_report/${resource}.json?token=379238b5-705c-48bc-b8c9-27e26676b417` //aqui a url da requisição
  
     try{
         const res = await fetch(url)
@@ -20,8 +20,8 @@ export async function getNotesPlant(resource){
 }
 
 export async function getFazenda(){   //pro aside
-    const cors = `https://justcors.com/tl_fba9df5`
-    let url = `${cors}/https://farmbox.cc/api/public/content_details.json?token=379238b5-705c-48bc-b8c9-27e26676b417` //aqui a url da requisição
+    const cors = `https://justcors.com/tl_0882966/`
+    let url = `${cors}https://farmbox.cc/api/public/content_details.json?token=379238b5-705c-48bc-b8c9-27e26676b417` //aqui a url da requisição
  
     try{
         const res = await fetch(url)
@@ -39,8 +39,8 @@ export async function getFazenda(){   //pro aside
 }
 
 export async function getPluvio(){   //pro aside
-    const cors = `https://justcors.com/tl_fba9df5`
-    let url = `${cors}/https://farmbox.cc/api/public/technical_visit_report/farm.json?token=379238b5-705c-48bc-b8c9-27e26676b417` //aqui a url da requisição
+    const cors = `https://justcors.com/tl_0882966/`
+    let url = `${cors}https://farmbox.cc/api/public/technical_visit_report/farm.json?token=379238b5-705c-48bc-b8c9-27e26676b417` //aqui a url da requisição
  
     try{
         const res = await fetch(url)
