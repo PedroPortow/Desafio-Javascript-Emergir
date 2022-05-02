@@ -18,7 +18,7 @@ export function renderDetalhesFazenda(el, index){
                     </p>
                 </div>
                 <div class="image-row">
-                    ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
+                    ${urls.map(e => `<img src="${e}" alt="img" class="img">`).join("")}
                 </div>
                 <p>${el.description}</p>
             </div>
@@ -46,12 +46,13 @@ export function renderDetalhesFazenda(el, index){
             cardRowFarm.insertAdjacentHTML('afterbegin', cardNotesFarm)
         }
     }
+
 }
 
 /////////////////////////////////////////////////////////
 
 export function renderTalhaoPlantationsHeaders(el, index){
-
+    // console.log(el)
         const wrapperTalhoes = document.querySelector('[wrapperTalhoes]')
 
         const html = 
@@ -104,7 +105,7 @@ export function renderNotesTalhoes(el, currentId, index){
                 }   
         })  
     })
-
+    // console.log(el)
     if(el){
         if(index === 0){
             if(el.location.id)
@@ -126,7 +127,7 @@ export function renderNotesTalhoes(el, currentId, index){
                      </p>
                  </div>
                          <div class="image-row">
-                             ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
+                             ${urls.map(e => `<img src="${e}" alt="img" class="img">`).join("")}
                          </div>
                          <p>${el.description}</p>
                      </div>
@@ -180,7 +181,7 @@ export function renderNotesTalhoes(el, currentId, index){
                             </p>
                         </div>
                          <div class="image-row">
-                             ${urls.map(e => `<img src="${e}" alt="img">`).join("")}
+                             ${urls.map(e => `<img src="${e}" alt="img" class="img">`).join("")}
                          </div>
                          <p>${el.description}</p>
                      </div>

@@ -147,6 +147,13 @@ a {
   }
 }
 
+.viewPic {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid red;
+}
+
 header {
   height: 64px;
   width: 100%;
@@ -409,7 +416,7 @@ header .textWrapper i {
   gap: 16px;
   margin: 8px 0;
 }
-.main-cards-wrapper .card-row .container-anotacao .image-row img {
+.main-cards-wrapper .card-row .container-anotacao .image-row .img {
   width: 100px;
   height: 100px;
   border-radius: 5px;

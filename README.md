@@ -1,1 +1,1 @@
-deploy: https://projeto-check-plant.vercel.app/
+Deploy: https://desafio-javascript-emergir-74zzhwbxy-pedroportow.vercel.app/
