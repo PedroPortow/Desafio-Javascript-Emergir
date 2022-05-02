@@ -1,7 +1,6 @@
-export function renderViewAsideT(data, dataPlant, dataPluvio){
+export function renderViewAsideT(data, dataPlant, dataPluvio){ //Renderiza o aside na tela
     const divRender = document.querySelector('[aside-render]')
-    // console.log(data, dataPluvio)
-
+  
     const plots = dataPluvio.plots
     const active_plots = dataPluvio.active_harvest_plantations.length
     const totalPlots = plots + active_plots

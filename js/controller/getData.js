@@ -1,8 +1,8 @@
 import { getNotesPlant, getFazenda, getPluvio } from "../Fetch.js";
-import { renderViewAsideT } from "./asideView.js";
-import {renderDetalhesFazenda, renderTalhaoPlantationsHeaders, renderNotesTalhoes} from './mainView.js'
+import { renderViewAsideT } from "../view/asideView.js";
+import {renderDetalhesFazenda, renderTalhaoPlantationsHeaders, renderNotesTalhoes} from '../view/mainView.js'
 
-export async function getFazendaNotes(){ //só faz as requisições e chama as funções q renderiza
+export async function getFazendaNotes(){ //Pega os dados da fetch e chama as funções que renderizam na tela
     const dataNotes = await getNotesPlant('notes').then(res => {
         return res
     });

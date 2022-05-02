@@ -1,4 +1,4 @@
-export function renderDetalhesFazenda(el, index){
+export function renderDetalhesFazenda(el, index){ //Cards Detalhes da Fazenda
     const cardRowFarm = document.querySelector('.card-row') 
    
    if(el){
@@ -49,9 +49,9 @@ export function renderDetalhesFazenda(el, index){
 
 }
 
-/////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
-export function renderTalhaoPlantationsHeaders(el, index){
+export function renderTalhaoPlantationsHeaders(el, index){ //Headers Talhões
     // console.log(el)
         const wrapperTalhoes = document.querySelector('[wrapperTalhoes]')
 
@@ -90,7 +90,7 @@ export function renderTalhaoPlantationsHeaders(el, index){
         }
 }
 
-export function renderNotesTalhoes(el, currentId, index){
+export function renderNotesTalhoes(el, currentId, index){ //Cards de cada Talhão e Funcionalidade esconder ou mostrar Cards
     const divRender = document.querySelector(`[id-atribute${currentId}]`)
 
     const arrow = document.querySelectorAll(`[arrows-data${currentId}]`).forEach(arrow => {

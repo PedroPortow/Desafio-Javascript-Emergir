@@ -1,4 +1,4 @@
-import {getFazendaNotes} from './modules/getData.js'
+import {getFazendaNotes} from './controller/getData.js'
 
 
 function load(){
